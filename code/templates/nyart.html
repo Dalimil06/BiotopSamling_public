@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turer Legg til en tur</title>
+</head>
+<header class="header">
+</header>
+<body class="body">
+    <h2 class="body-h2">Legg til en ny art:</h2><br>
+    <form class="body-form" id="addArtForm">
+        <label for="norsk_navn">Norsk navn:</label><br>
+        <input type="text" id="norsk_navn" name="norsk_navn"><br><br>
+        <label for="latinsk_navn">Latinsk_navn:</label><br>
+        <input type="text" id="latinsk_navn" name="latinsk_navn"><br><br>
+        <label for="bilde">Bilde:</label>
+        <input type="file" id="bilde" name="bilde"><br><br>
+        <label for="rike">Rike:</label><br>
+        <input type="text" id="rike" name="rike"><br><br>
+        <label for="rekke">Rekke:</label><br>
+        <input type="text" id="rekke" name="rekke"><br><br>
+        <label for="klasse">Klasse:</label><br>
+        <input type="text" id="klasse" name="klasse"><br><br>
+        <label for="orden">Orden:</label><br>
+        <input type="text" id="orden" name="orden"><br><br>
+        <label for="familie">Familie:</label><br>
+        <input type="text" id="familie" name="familie"><br><br>
+        <label for="slekt">Slekt:</label><br>
+        <input type="text" id="slekt" name="slekt"><br><br>
+        <label for="dato">Dato:</label><br>
+        <input type="date" id="dato" name="dato"><br><br>
+        <label for="tekst">Tekst:</label><br>
+        <input type="text" id="tekst" name="tekst"><br><br>
+        <button class="body-form-button" type="button" onclick="submitForm()">Lagre</button>
+    </form>
+</body>
+<script>
+    function submitForm() {
+        var fileInput = document.getElementById('bilde');
+        var file = fileInput.files[0];
+        var formData = new FormData();
+        formData.append('bilde', file);
+        formData.append('norsk_navn', document.getElementById('norsk_navn').value);
+        formData.append('latinsk_navn', document.getElementById('latinsk_navn').value);
+        formData.append('rike', document.getElementById('rike').value);
+        formData.append('rekke', document.getElementById('rekke').value);
+        formData.append('klasse', document.getElementById('klasse').value);
+        formData.append('orden', document.getElementById('orden').value);
+        formData.append('familie', document.getElementById('familie').value);
+        formData.append('slekt', document.getElementById('slekt').value);
+        formData.append('dato', document.getElementById('dato').value);
+        formData.append('tekst', document.getElementById('tekst').value);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/nyart', true);
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                window.location.href = '/nyart';
+            } else {
+                alert('Feil ved lagring av art.');
+            }
+        };
+        xhr.send(formData);
+    }
+</script>
+</html>
